@@ -136,7 +136,7 @@ export default function EditorShell() {
       </div>
 
       {/* Warning Banner */}
-      <div className="bg-[#fff3e0] border border-[#ff9800] rounded-[6px] mx-3 mt-2 px-4 py-2.5 shrink-0">
+      <div className="bg-[#fff3e0] border border-[#ff9800] rounded-[6px] px-4 py-2.5 shrink-0">
         <p className="text-[#373737] text-[13px]">⚠ El contenido está siendo editado por otro usuario: mamejia@diariolibre.com, 05/12/2022 01:53:25 p.m.</p>
       </div>
 
