@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router";
+import { Outlet, useNavigate, useLocation } from "react-router";
 import svgPaths from "../../imports/MacBookPro161/svg-0qah9wh58v";
 
 function SearchIcon() {
@@ -44,6 +44,7 @@ const NAV_ITEMS = [
 
 export default function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <div className="flex flex-col h-screen bg-white font-['Roboto',sans-serif] overflow-hidden">
@@ -91,7 +92,9 @@ export default function Layout() {
             <span className="text-[13px] font-bold text-[#212121] opacity-45">Navegación</span>
           </div>
           {NAV_ITEMS.map(({ icon, label, path }) => {
-            const isActive = location.pathname === path || (path === "/" && location.pathname === "/");
+            const isActive =
+              path === "/" &&
+              (location.pathname === "/" || location.pathname.startsWith("/editor"));
             return (
               <button
                 key={label}
