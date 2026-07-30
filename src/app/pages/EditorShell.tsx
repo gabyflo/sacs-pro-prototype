@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation } from "react-router";
 import svgPaths from "../../imports/MacBookPro161/svg-0qah9wh58v";
 
 function RefreshIcon() {
-  return <svg fill="none" height="18" viewBox="0 0 17.6299 19.9582" width="17"><path d={svgPaths.p22ee372} fill="#373737" /></svg>;
+  return <svg fill="none" height="18" viewBox="0 0 17.6299 19.9582" width="18"><path d={svgPaths.p22ee372} fill="#373737" /></svg>;
 }
 function ThreeDotsIcon() {
   return <svg fill="none" height="18" viewBox="0 0 20 20" width="18"><path d={svgPaths.pc1d980} fill="#373737" /></svg>;
@@ -21,6 +21,13 @@ function CaretDownIcon() {
     <svg fill="none" height="14" viewBox="0 0 12.5 20" width="10">
       <g clipPath="url(#shell-cd)"><path d={svgPaths.p34b5a3f2} fill="#373737" /></g>
       <defs><clipPath id="shell-cd"><rect fill="white" height="20" width="12.5" /></clipPath></defs>
+    </svg>
+  );
+}
+function CopyIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#6b7280">
+      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
     </svg>
   );
 }
@@ -80,17 +87,23 @@ export default function EditorShell() {
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Article Header Bar */}
       <div className="bg-white border border-[#dee2e6] shrink-0">
-        <div className="flex items-center gap-4 px-3 py-2">
+        <div className="flex items-center gap-4 px-3 py-[12px]">
           <span className="bg-[#fecf4a] text-black text-[12px] font-medium px-2 py-0.5 rounded-full shrink-0">En Edición</span>
           <span className="flex-1 text-[#1f2937] text-[13px] font-medium truncate">{title || "Nueva Nota"}</span>
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[#6b7280] text-[12px]">ID: 2159109</span>
-            <button className="text-[#0d6efd] text-[12px] hover:underline">Ir a URL</button>
-            <span className="bg-[#b3cefb] text-black text-[11px] font-medium px-2 py-0.5 rounded-full">SEO</span>
-            <span className="bg-[#b3cefb] text-black text-[11px] font-medium px-2 py-0.5 rounded-full">UX</span>
+            <div className="flex items-center">
+              <button className="flex items-center justify-center w-[28px] h-[28px] hover:bg-[#f0f0f0] rounded transition-colors"><CopyIcon /></button>
+              <span className="text-[#6b7280] text-[12px]">ID: 2159109</span>
+            </div>
+            <div className="flex items-center">
+              <button className="flex items-center justify-center w-[28px] h-[28px] hover:bg-[#f0f0f0] rounded transition-colors"><CopyIcon /></button>
+              <button className="text-[#0d6efd] text-[12px] hover:underline">Ir a URL</button>
+            </div>
+            <span className="bg-[#fdecea] text-black text-[12px] font-medium px-2 py-1 rounded-full">SEO 1.7</span>
+            <span className="bg-[#e0f2f1] text-black text-[12px] font-medium px-2 py-1 rounded-full">UX 8.9</span>
             <div className="flex items-center gap-1 text-[#373737] text-[12px]">
               <RefreshIcon />
-              <span>{isSaving ? "Salvando..." : "Guardado"}</span>
+              <span className="inline-block w-[58px]">{isSaving ? "Salvando..." : "Guardado"}</span>
             </div>
             <div className="relative" ref={dotsRef}>
               <button onClick={() => setShowHeaderDotsMenu(!showHeaderDotsMenu)} className="p-1 rounded hover:bg-[#f0f0f0] transition-colors">
@@ -99,7 +112,7 @@ export default function EditorShell() {
               {showHeaderDotsMenu && (
                 <div className="absolute right-0 top-full mt-1 bg-white rounded-[6px] shadow-lg border border-[#d1d6de] py-1.5 w-[180px] z-50">
                   {PUBLISH_ITEMS.map(item => (
-                    <button key={item} onClick={() => setShowHeaderDotsMenu(false)} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
+                    <button key={item} onClick={() => { setShowHeaderDotsMenu(false); if (item === "Cancelar") navigate("/"); }} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
                   ))}
                 </div>
               )}
@@ -126,7 +139,7 @@ export default function EditorShell() {
               {showPublishMenu && (
                 <div className="absolute right-0 top-full mt-1 bg-white rounded-[6px] shadow-lg border border-[#d1d6de] py-1.5 w-[180px] z-50">
                   {PUBLISH_ITEMS.map(item => (
-                    <button key={item} onClick={() => setShowPublishMenu(false)} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
+                    <button key={item} onClick={() => { setShowPublishMenu(false); if (item === "Cancelar") navigate("/"); }} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
                   ))}
                 </div>
               )}

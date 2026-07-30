@@ -3,6 +3,7 @@ import Layout from "./pages/Layout";
 import NewNote from "./pages/NewNote";
 import EditorShell from "./pages/EditorShell";
 import EditorDeTexto from "./pages/tabs/EditorDeTexto";
+import InfoBasica from "./pages/tabs/InfoBasica";
 import PlaceholderTab from "./pages/tabs/PlaceholderTab";
 
 export const router = createBrowserRouter([
@@ -17,7 +18,7 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <Navigate to="texto" replace /> },
           { path: "texto", Component: EditorDeTexto },
-          { path: "info", element: <PlaceholderTab label="Info. Básica" /> },
+          { path: "info", Component: InfoBasica },
           { path: "imagen", element: <PlaceholderTab label="Imagen de la Nota" /> },
           { path: "archivo", element: <PlaceholderTab label="Archivo" /> },
           { path: "galeria", element: <PlaceholderTab label="Galería" /> },

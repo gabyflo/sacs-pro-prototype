@@ -1,23 +1,22 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import svgPaths from "../../imports/MacBookPro164-1/svg-c4ntp5eeyk";
-import IconTextEditorHtml from "../../imports/IconTextEditorHtml";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 
 function RefreshCloudIcon() {
   return (
-    <svg className="block" fill="none" height="16.5" viewBox="0 0 21.5 16.5" width="21.5">
+    <svg className="block" fill="none" height="18" viewBox="0 0 21.5 16.5" width="18">
       <path d={svgPaths.p141d7d80} stroke="#141B34" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
     </svg>
   );
 }
 function ThreeDotsIcon() {
-  return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><path d={svgPaths.pc1d980} fill="#373737" /></svg>;
+  return <svg fill="none" height="18" viewBox="0 0 20 20" width="18"><path d={svgPaths.pc1d980} fill="#373737" /></svg>;
 }
 function EyeIcon() {
   return (
-    <svg fill="none" height="17.7778" viewBox="0 0 20 17.7778" width="20">
+    <svg fill="none" height="16" viewBox="0 0 20 17.7778" width="18">
       <g clipPath="url(#nn-eye)"><path d={svgPaths.p348c0200} fill="#373737" /></g>
       <defs><clipPath id="nn-eye"><rect fill="white" height="17.7778" width="20" /></clipPath></defs>
     </svg>
@@ -25,9 +24,16 @@ function EyeIcon() {
 }
 function CaretDownSvg() {
   return (
-    <svg fill="none" height="20" viewBox="0 0 12.5 20" width="12.5">
+    <svg fill="none" height="14" viewBox="0 0 12.5 20" width="10">
       <g clipPath="url(#nn-cd)"><path d={svgPaths.p34b5a3f2} fill="#373737" /></g>
       <defs><clipPath id="nn-cd"><rect fill="white" height="20" width="12.5" /></clipPath></defs>
+    </svg>
+  );
+}
+function CopyIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="#6b7280">
+      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
     </svg>
   );
 }
@@ -44,40 +50,40 @@ function TableIcon() {
   return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><g clipPath="url(#nn-table)"><path d={svgPaths.p9537900} fill="#373737" /></g><defs><clipPath id="nn-table"><rect fill="white" height="20" width="20" /></clipPath></defs></svg>;
 }
 function EyedropperIcon() {
-  return <svg fill="none" height="16" viewBox="0 0 16 16" width="16"><path d={svgPaths.p1a6a1f00} fill="black" /></svg>;
+  return <svg fill="none" height="16" viewBox="0 0 16 16" width="16"><path d={svgPaths.p1a6a1f00} fill="#373737" /></svg>;
 }
 function AlignLeftIcon() {
-  return <svg fill="none" height="14" viewBox="0 0 14 14" width="14"><path d={svgPaths.p67e7480} fill="black" /></svg>;
+  return <svg fill="none" height="14" viewBox="0 0 14 14" width="14"><path d={svgPaths.p67e7480} fill="#373737" /></svg>;
 }
 function FontSizeAIcon() {
-  return <svg fill="none" height="14" viewBox="0 0 12 14" width="12"><path d={svgPaths.p37756b10} fill="black" /></svg>;
+  return <svg fill="none" height="14" viewBox="0 0 12 14" width="12"><path d={svgPaths.p37756b10} fill="#373737" /></svg>;
 }
 function TextHeightIcon() {
-  return <svg fill="none" height="16" viewBox="0 0 20 16" width="20"><path d={svgPaths.p20d00520} fill="black" /></svg>;
+  return <svg fill="none" height="16" viewBox="0 0 20 16" width="20"><path d={svgPaths.p20d00520} fill="#373737" /></svg>;
 }
 function BrushIcon() {
   return (
-    <svg fill="none" height="20" viewBox="0 0 15 20" width="15">
+    <svg fill="none" height="18" viewBox="0 0 15 20" width="14">
       <g clipPath="url(#nn-brush)"><path d={svgPaths.p37024800} fill="#373737" /></g>
       <defs><clipPath id="nn-brush"><rect fill="white" height="20" width="15" /></clipPath></defs>
     </svg>
   );
 }
 function UndoIcon() {
-  return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><path clipRule="evenodd" d={svgPaths.p235cb340} fill="#373737" fillRule="evenodd" /><path d={svgPaths.pe176c80} fill="#373737" /></svg>;
+  return <svg fill="none" height="18" viewBox="0 0 20 20" width="18"><path clipRule="evenodd" d={svgPaths.p235cb340} fill="#373737" fillRule="evenodd" /><path d={svgPaths.pe176c80} fill="#373737" /></svg>;
 }
 function RedoIcon() {
-  return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><path clipRule="evenodd" d={svgPaths.p2ff5f00} fill="#373737" fillRule="evenodd" /><path d={svgPaths.p350de000} fill="#373737" /></svg>;
+  return <svg fill="none" height="18" viewBox="0 0 20 20" width="18"><path clipRule="evenodd" d={svgPaths.p2ff5f00} fill="#373737" fillRule="evenodd" /><path d={svgPaths.p350de000} fill="#373737" /></svg>;
 }
 function BoldIcon() {
-  return <svg fill="none" height="20" viewBox="0 0 15 20" width="15"><path d={svgPaths.p1ad44900} fill="#373737" /></svg>;
+  return <svg fill="none" height="18" viewBox="0 0 15 20" width="14"><path d={svgPaths.p1ad44900} fill="#373737" /></svg>;
 }
 function ItalicIcon() {
-  return <svg fill="none" height="20" viewBox="0 0 15 20" width="15"><path d={svgPaths.p174528f0} fill="#373737" /></svg>;
+  return <svg fill="none" height="18" viewBox="0 0 15 20" width="14"><path d={svgPaths.p174528f0} fill="#373737" /></svg>;
 }
 function UnderlineIcon() {
   return (
-    <svg fill="none" height="20" viewBox="0 0 17.5 20" width="17.5">
+    <svg fill="none" height="18" viewBox="0 0 17.5 20" width="16">
       <g clipPath="url(#nn-ul)"><path d={svgPaths.p16cf4600} fill="#373737" /></g>
       <defs><clipPath id="nn-ul"><rect fill="white" height="20" width="17.5" /></clipPath></defs>
     </svg>
@@ -85,7 +91,7 @@ function UnderlineIcon() {
 }
 function LinkIcon() {
   return (
-    <svg fill="none" height="16" viewBox="0 0 20 16" width="20">
+    <svg fill="none" height="16" viewBox="0 0 20 16" width="18">
       <g clipPath="url(#nn-link)"><path d={svgPaths.p3527010} fill="#373737" /></g>
       <defs><clipPath id="nn-link"><rect fill="white" height="16" width="20" /></clipPath></defs>
     </svg>
@@ -93,7 +99,7 @@ function LinkIcon() {
 }
 function CodeIcon() {
   return (
-    <svg fill="none" height="16" viewBox="0 0 20 16" width="20">
+    <svg fill="none" height="14" viewBox="0 0 20 16" width="18">
       <g clipPath="url(#nn-code)"><path d={svgPaths.p2ce65400} fill="#373737" /></g>
       <defs><clipPath id="nn-code"><rect fill="white" height="16" width="20" /></clipPath></defs>
     </svg>
@@ -103,10 +109,14 @@ function TrashIcon() {
   return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><path d={svgPaths.p19a8d580} fill="#373737" /><path clipRule="evenodd" d={svgPaths.p407eaf0} fill="#373737" fillRule="evenodd" /></svg>;
 }
 function HighlighterIcon() {
-  return <svg fill="none" height="16" viewBox="0 0 17 16" width="17"><path d={svgPaths.p1940d400} fill="black" /></svg>;
+  return <svg fill="none" height="16" viewBox="0 0 17 16" width="17"><path d={svgPaths.p1940d400} fill="#373737" /></svg>;
 }
 function HtmlIcon() {
-  return <svg fill="none" height="22.4" viewBox="0 0 19.2 22.4" width="19.2"><path d={svgPaths.p1dbdf400} fill="black" /></svg>;
+  return (
+    <svg fill="none" height="20" viewBox="0 0 32 32" width="20" style={{ width: 28, height: 28 }}>
+      <path d="M11.5 7.875H15.875V11.3125C15.875 12.8672 17.1328 14.125 18.6875 14.125H22.125V23.5C22.125 23.8438 21.8438 24.125 21.5 24.125H11.5C11.1562 24.125 10.875 23.8438 10.875 23.5V8.5C10.875 8.15625 11.1562 7.875 11.5 7.875ZM17.75 8.65234L21.3477 12.25H18.6875C18.168 12.25 17.75 11.832 17.75 11.3125V8.65234ZM11.5 6C10.1211 6 9 7.12109 9 8.5V23.5C9 24.8789 10.1211 26 11.5 26H21.5C22.8789 26 24 24.8789 24 23.5V13.2852C24 12.6211 23.7383 11.9844 23.2695 11.5156L18.4805 6.73047C18.0117 6.26172 17.3789 6 16.7148 6H11.5ZM15.6484 17.5469C15.9844 17.1523 15.9414 16.5625 15.5469 16.2266C15.1523 15.8906 14.5625 15.9336 14.2266 16.3281L12.3516 18.5156C12.0508 18.8672 12.0508 19.3828 12.3516 19.7344L14.2266 21.9219C14.5625 22.3164 15.1562 22.3594 15.5469 22.0234C15.9375 21.6875 15.9844 21.0938 15.6484 20.7031L14.2969 19.125L15.6484 17.5469ZM18.7734 16.3281C18.4375 15.9336 17.8438 15.8906 17.4531 16.2266C17.0625 16.5625 17.0156 17.1562 17.3516 17.5469L18.7031 19.125L17.3516 20.7031C17.0156 21.0977 17.0586 21.6875 17.4531 22.0234C17.8477 22.3594 18.4375 22.3164 18.7734 21.9219L20.6484 19.7344C20.9492 19.3828 20.9492 18.8672 20.6484 18.5156L18.7734 16.3281Z" fill="#373737" />
+    </svg>
+  );
 }
 function PlusCircleFillIcon() {
   return (
@@ -148,17 +158,23 @@ export default function NewNote() {
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Article Header Bar */}
       <div className="bg-white border border-[#dee2e6] shrink-0">
-        <div className="flex items-center gap-4 px-3 py-2">
+        <div className="flex items-center gap-4 px-3 py-[12px]">
           <span className="bg-[#fecf4a] text-black text-[12px] font-medium px-2 py-0.5 rounded-full shrink-0">En Edición</span>
           <span className="flex-1 text-[#1f2937] text-[13px] font-medium truncate">Nueva Nota</span>
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[#6b7280] text-[12px]">ID: 2159109</span>
-            <button className="text-[#0d6efd] text-[12px] hover:underline">Ir a URL</button>
-            <span className="bg-[#b3cefb] text-black text-[11px] font-medium px-2 py-0.5 rounded-full">SEO</span>
-            <span className="bg-[#b3cefb] text-black text-[11px] font-medium px-2 py-0.5 rounded-full">UX</span>
+            <div className="flex items-center">
+              <button className="flex items-center justify-center w-[28px] h-[28px] hover:bg-[#f0f0f0] rounded transition-colors"><CopyIcon /></button>
+              <span className="text-[#6b7280] text-[12px]">ID: 2159109</span>
+            </div>
+            <div className="flex items-center">
+              <button className="flex items-center justify-center w-[28px] h-[28px] hover:bg-[#f0f0f0] rounded transition-colors"><CopyIcon /></button>
+              <button className="text-[#0d6efd] text-[12px] hover:underline">Ir a URL</button>
+            </div>
+            <span className="bg-[#fdecea] text-black text-[12px] font-medium px-2 py-1 rounded-full">SEO 1.7</span>
+            <span className="bg-[#e0f2f1] text-black text-[12px] font-medium px-2 py-1 rounded-full">UX 8.9</span>
             <div className="flex items-center gap-1 text-[#373737] text-[12px]">
               <RefreshCloudIcon />
-              <span>Nueva...</span>
+              <span className="inline-block w-[58px]">Nueva...</span>
             </div>
             <div className="relative" ref={dotsRef}>
               <button onClick={() => setShowDotsMenu(!showDotsMenu)} className="p-1 rounded hover:bg-[#f0f0f0] transition-colors">
@@ -167,7 +183,7 @@ export default function NewNote() {
               {showDotsMenu && (
                 <div className="absolute right-0 top-full mt-1 bg-white rounded-[6px] shadow-lg border border-[#d1d6de] py-1.5 w-[180px] z-50">
                   {PUBLISH_ITEMS.map(item => (
-                    <button key={item} onClick={() => setShowDotsMenu(false)} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
+                    <button key={item} onClick={() => { setShowDotsMenu(false); if (item === "Cancelar") navigate("/"); }} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
                   ))}
                 </div>
               )}
@@ -191,7 +207,7 @@ export default function NewNote() {
               {showPublishMenu && (
                 <div className="absolute right-0 top-full mt-1 bg-white rounded-[6px] shadow-lg border border-[#d1d6de] py-1.5 w-[180px] z-50">
                   {PUBLISH_ITEMS.map(item => (
-                    <button key={item} onClick={() => setShowPublishMenu(false)} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
+                    <button key={item} onClick={() => { setShowPublishMenu(false); if (item === "Cancelar") navigate("/"); }} className={`w-full text-left px-4 h-[34px] text-[14px] font-['Roboto',sans-serif] hover:bg-[#f5f5f5] transition-colors ${item === "Priorizar" ? "text-[#979797]" : "text-[#373737]"}`}>{item}</button>
                   ))}
                 </div>
               )}
@@ -201,7 +217,7 @@ export default function NewNote() {
       </div>
 
       {/* Warning Banner */}
-      <div className="bg-[#fff3e0] border border-[#ff9800] rounded-[6px] py-2.5 shrink-0 px-[16px] py-[10px] mx-[0px] mt-[8px] mb-[0px] m-[0px]">
+      <div className="bg-[#fff3e0] border border-[#ff9800] rounded-[6px] shrink-0 px-4 py-2.5">
         <p className="text-[#373737] text-[13px]">⚠ El contenido está siendo editado por otro usuario: mamejia@diariolibre.com, 05/12/2022 01:53:25 p.m.</p>
       </div>
 
@@ -243,7 +259,7 @@ export default function NewNote() {
               { icon: <CodeIcon />, title: "Código" },
               { icon: <TrashIcon />, title: "Eliminar" },
               { icon: <HighlighterIcon />, title: "Resaltar" },
-              { icon: <div className="w-[19px] h-[22px]"><IconTextEditorHtml /></div>, title: "HTML" },
+              { icon: <HtmlIcon />, title: "HTML" },
             ].map(({ icon, title }) => (
               <button key={title} title={title} className="w-8 h-8 flex items-center justify-center rounded hover:bg-[#f0f4ff] transition-colors text-[#373737]">
                 {icon}
@@ -252,23 +268,25 @@ export default function NewNote() {
           </div>
 
           {/* Placeholder title */}
-          <div className="pt-6 pb-2">
-            <div
-              className="w-full font-['Roboto',sans-serif] font-medium text-[#b1b1b1] text-[35px] leading-[1.2] cursor-text"
+          <div className="px-[0px] pt-[24px] pb-[0px]">
+            <textarea
+              readOnly
               onClick={goToEditor}
-            >
-              Teclea o pega el título de la nota
-            </div>
+              placeholder="Teclea o pega el título de la nota"
+              className="w-full resize-none outline-none overflow-hidden font-['Roboto',sans-serif] font-medium text-[35px] leading-[1.2] placeholder-[#b1b1b1] text-[#b1b1b1] cursor-text"
+              style={{ caretColor: "#5c96f6" }}
+            />
           </div>
 
           {/* Placeholder subtitle */}
           <div className="pb-6 border-b border-[#f0f0f0]">
-            <div
-              className="w-full font-['Roboto',sans-serif] font-normal text-[#b1b1b1] text-[24px] leading-[1.35] cursor-text"
+            <textarea
+              readOnly
               onClick={goToEditor}
-            >
-              Teclea o pega el subtítulo de la nota
-            </div>
+              placeholder="Teclea o pega el subtítulo de la nota"
+              className="w-full resize-none outline-none overflow-hidden font-['Roboto',sans-serif] font-normal text-[24px] leading-[1.35] placeholder-[#b1b1b1] text-[#b1b1b1] cursor-text"
+              style={{ caretColor: "#5c96f6" }}
+            />
           </div>
 
           {/* Placeholder paragraph row */}

@@ -93,8 +93,8 @@ export default function Layout() {
           </div>
           {NAV_ITEMS.map(({ icon, label, path }) => {
             const isActive =
-              location.pathname === path ||
-              (path === "/" && location.pathname.startsWith("/editor"));
+              path === "/" &&
+              (location.pathname === "/" || location.pathname.startsWith("/editor"));
             return (
               <button
                 key={label}

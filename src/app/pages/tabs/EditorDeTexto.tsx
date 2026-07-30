@@ -38,7 +38,13 @@ function AlignLeftIcon() { return <svg fill="none" height="14" viewBox="0 0 14 1
 function FontAIcon() { return <svg fill="none" height="14" viewBox="0 0 12 14" width="12"><path d={svgPaths1641.p37756b10} fill="#373737" /></svg>; }
 function TextHeightIcon() { return <svg fill="none" height="16" viewBox="0 0 20 16" width="20"><path d={svgPaths1641.p20d00520} fill="#373737" /></svg>; }
 function HighlighterIcon() { return <svg fill="none" height="16" viewBox="0 0 17 16" width="17"><path d={svgPaths1641.p1940d400} fill="#373737" /></svg>; }
-function HtmlIcon() { return <svg fill="none" height="22" viewBox="0 0 19.2 22.4" width="19"><path d={svgPaths1641.p1dbdf400} fill="#373737" /></svg>; }
+function HtmlIcon() {
+  return (
+    <svg fill="none" height="20" viewBox="0 0 32 32" width="20" style={{ width: 28, height: 28 }}>
+      <path d="M11.5 7.875H15.875V11.3125C15.875 12.8672 17.1328 14.125 18.6875 14.125H22.125V23.5C22.125 23.8438 21.8438 24.125 21.5 24.125H11.5C11.1562 24.125 10.875 23.8438 10.875 23.5V8.5C10.875 8.15625 11.1562 7.875 11.5 7.875ZM17.75 8.65234L21.3477 12.25H18.6875C18.168 12.25 17.75 11.832 17.75 11.3125V8.65234ZM11.5 6C10.1211 6 9 7.12109 9 8.5V23.5C9 24.8789 10.1211 26 11.5 26H21.5C22.8789 26 24 24.8789 24 23.5V13.2852C24 12.6211 23.7383 11.9844 23.2695 11.5156L18.4805 6.73047C18.0117 6.26172 17.3789 6 16.7148 6H11.5ZM15.6484 17.5469C15.9844 17.1523 15.9414 16.5625 15.5469 16.2266C15.1523 15.8906 14.5625 15.9336 14.2266 16.3281L12.3516 18.5156C12.0508 18.8672 12.0508 19.3828 12.3516 19.7344L14.2266 21.9219C14.5625 22.3164 15.1562 22.3594 15.5469 22.0234C15.9375 21.6875 15.9844 21.0938 15.6484 20.7031L14.2969 19.125L15.6484 17.5469ZM18.7734 16.3281C18.4375 15.9336 17.8438 15.8906 17.4531 16.2266C17.0625 16.5625 17.0156 17.1562 17.3516 17.5469L18.7031 19.125L17.3516 20.7031C17.0156 21.0977 17.0586 21.6875 17.4531 22.0234C17.8477 22.3594 18.4375 22.3164 18.7734 21.9219L20.6484 19.7344C20.9492 19.3828 20.9492 18.8672 20.6484 18.5156L18.7734 16.3281Z" fill="#373737" />
+    </svg>
+  );
+}
 function PlusCircleIcon() { return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><g clipPath="url(#et-pc)"><path d={svgPaths.p2e749b00} fill="#373737" /></g><defs><clipPath id="et-pc"><rect fill="white" height="20" width="20" /></clipPath></defs></svg>; }
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -198,16 +204,16 @@ function FloatingToolbar() {
 
 // ── Block Inserter ────────────────────────────────────────────────────────────
 
-function BlockInserter({ onInsert }: { onInsert: (type: BlockType) => void }) {
+function BlockInserter({ onInsert, visible }: { onInsert: (type: BlockType) => void; visible: boolean }) {
   const [open, setOpen] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const visible = hovered || open;
+
+  if (!visible && !open) return <div className="h-8" />;
 
   return (
-    <div className="relative flex items-center h-8 gap-2" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+    <div className="relative flex items-center h-8 gap-2">
       <button
         onClick={() => setOpen(!open)}
-        className={`relative z-10 flex-shrink-0 w-5 h-5 flex items-center justify-center transition-all duration-150 ${visible ? "opacity-100" : "opacity-0"}`}
+        className="relative z-10 flex-shrink-0 w-5 h-5 flex items-center justify-center"
         title={open ? "Cerrar" : "Insertar bloque"}
       >
         {open ? (
@@ -233,9 +239,12 @@ interface ParagraphBlockProps {
   block: Block;
   pendingFocusRef: React.MutableRefObject<string | null>;
   onContentChange: (id: string, html: string) => void;
+  onFocus?: (id: string) => void;
+  onBlur?: () => void;
+  onEnter?: () => void;
 }
 
-function ParagraphBlock({ block, pendingFocusRef, onContentChange }: ParagraphBlockProps) {
+function ParagraphBlock({ block, pendingFocusRef, onContentChange, onFocus, onBlur, onEnter }: ParagraphBlockProps) {
   const divRef = useRef<HTMLDivElement>(null);
   const shouldFocus = pendingFocusRef.current === block.id;
 
@@ -263,9 +272,16 @@ function ParagraphBlock({ block, pendingFocusRef, onContentChange }: ParagraphBl
         suppressContentEditableWarning
         className="outline-none font-['Roboto',sans-serif] font-normal text-[14px] text-[#2d353c] leading-[1.5] min-h-[1.5em] py-1"
         style={{ caretColor: "#5c96f6", wordBreak: "break-word" }}
+        onFocus={() => onFocus?.(block.id)}
+        onBlur={() => onBlur?.()}
         onInput={() => { if (divRef.current) onContentChange(block.id, divRef.current.innerHTML); }}
         onKeyDown={(e) => {
           if ((e.ctrlKey || e.metaKey) && e.key === "z") return;
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            onEnter?.();
+            return;
+          }
           if (e.key === "Backspace") {
             const el = divRef.current;
             if (!el) return;
@@ -298,6 +314,8 @@ export default function EditorDeTexto() {
   const { title, setTitle, subtitle, setSubtitle } = useOutletContext<EditorContext>();
 
   const [blocks, setBlocks] = useState<Block[]>([]);
+  const [focusedBlockId, setFocusedBlockId] = useState<string | null>(null);
+  const [hoveredBlockIndex, setHoveredBlockIndex] = useState<number | null>(null);
 
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -392,32 +410,55 @@ export default function EditorDeTexto() {
         <div className="px-[0px] pt-[24px] pb-[0px]">
           <textarea
             ref={titleRef}
-            className="w-full resize-none outline-none font-['Roboto',sans-serif] font-medium text-[35px] leading-[1.2] placeholder-[#b1b1b1] text-[#373737]"
+            className="w-full resize-none outline-none overflow-hidden font-['Roboto',sans-serif] font-medium text-[35px] leading-[1.2] placeholder-[#b1b1b1] text-[#373737]"
             style={{ caretColor: "#5c96f6" }}
             placeholder="Teclea o pega el título de la nota"
             value={title}
-            onChange={e => setTitle(e.target.value)}
-            rows={1}
+            onChange={e => {
+              setTitle(e.target.value);
+              e.target.style.height = "auto";
+              e.target.style.height = e.target.scrollHeight + "px";
+            }}
           />
         </div>
 
         {/* Subtitle */}
         <div className="pb-6 border-b border-[#f0f0f0]">
           <textarea
-            className="w-full resize-none outline-none font-['Roboto',sans-serif] font-normal text-[24px] leading-[1.35] placeholder-[#b1b1b1] text-[#373737]"
+            className="w-full resize-none outline-none overflow-hidden font-['Roboto',sans-serif] font-normal text-[24px] leading-[1.35] placeholder-[#b1b1b1] text-[#373737]"
             style={{ caretColor: "#5c96f6" }}
             placeholder="Teclea o pega el subtítulo de la nota"
             value={subtitle}
-            onChange={e => setSubtitle(e.target.value)}
-            rows={1}
+            onChange={e => {
+              setSubtitle(e.target.value);
+              e.target.style.height = "auto";
+              e.target.style.height = e.target.scrollHeight + "px";
+            }}
           />
         </div>
 
         {/* Blocks */}
         {blocks.map((block, i) => (
-          <div key={block.id}>
-            <ParagraphBlock block={block} pendingFocusRef={pendingFocusRef} onContentChange={updateBlockContent} />
-            <BlockInserter onInsert={type => insertBlock(i, type)} />
+          <div
+            key={block.id}
+            onMouseEnter={() => setHoveredBlockIndex(i)}
+            onMouseLeave={() => setHoveredBlockIndex(null)}
+          >
+            <ParagraphBlock
+              block={block}
+              pendingFocusRef={pendingFocusRef}
+              onContentChange={updateBlockContent}
+              onFocus={(id) => setFocusedBlockId(id)}
+              onBlur={() => setFocusedBlockId(null)}
+              onEnter={() => insertBlock(i, "paragraph", true)}
+            />
+            <BlockInserter
+              onInsert={type => insertBlock(i, type)}
+              visible={
+                focusedBlockId !== block.id &&
+                (hoveredBlockIndex === i || (hoveredBlockIndex === null && i === blocks.length - 1))
+              }
+            />
           </div>
         ))}
 
