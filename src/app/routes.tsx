@@ -4,8 +4,10 @@ import NewNote from "./pages/NewNote";
 import EditorShell from "./pages/EditorShell";
 import EditorDeTexto from "./pages/tabs/EditorDeTexto";
 import PlaceholderTab from "./pages/tabs/PlaceholderTab";
+import MobileEditor from "./pages/MobileEditor";
 
 export const router = createBrowserRouter([
+  { path: "/mobile", Component: MobileEditor },
   {
     path: "/",
     Component: Layout,
