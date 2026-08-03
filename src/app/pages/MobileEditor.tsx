@@ -674,17 +674,27 @@ export default function MobileEditor() {
                   el.style.height = el.scrollHeight + 'px';
                 }}
               />
-              <p
-                className="font-['Roboto',sans-serif] font-medium leading-[1.4] text-[#b1b1b1] w-full"
+              <textarea
+                placeholder="Subtitulo de la nota"
+                rows={1}
+                className="w-full font-['Roboto',sans-serif] font-medium leading-[1.4] text-black bg-transparent border-none outline-none resize-none overflow-hidden placeholder-[#b1b1b1]"
                 style={{ fontSize: 20 }}
-              >
-                Subtitulo de la nota
-              </p>
-              <p
-                className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#b1b1b1] leading-[21px]"
-              >
-                Cuerpo de la nota
-              </p>
+                onInput={(e) => {
+                  const el = e.currentTarget;
+                  el.style.height = 'auto';
+                  el.style.height = el.scrollHeight + 'px';
+                }}
+              />
+              <textarea
+                placeholder="Cuerpo de la nota"
+                rows={1}
+                className="w-full font-['Roboto',sans-serif] font-normal text-[14px] text-black leading-[21px] bg-transparent border-none outline-none resize-none overflow-hidden placeholder-[#b1b1b1]"
+                onInput={(e) => {
+                  const el = e.currentTarget;
+                  el.style.height = 'auto';
+                  el.style.height = el.scrollHeight + 'px';
+                }}
+              />
             </div>
           )}
         </div>
