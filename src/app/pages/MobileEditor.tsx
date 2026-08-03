@@ -507,8 +507,8 @@ function DatePickerOverlay({ value, onChange, onClose }: {
 
 // ── Info Básica form ──────────────────────────────────────────────────────────
 
-function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, counter, tall = false }: {
-  label: string; chevron?: boolean; withAdd?: boolean; withEdit?: boolean; counter?: string; tall?: boolean;
+function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, counter, tall = false, options }: {
+  label: string; chevron?: boolean; withAdd?: boolean; withEdit?: boolean; counter?: string; tall?: boolean; options?: string[];
 }) {
   const inputClass = "w-full font-['Roboto',sans-serif] text-[14px] text-[#373737] bg-transparent border-none outline-none pb-[6px]";
   return (
@@ -520,6 +520,7 @@ function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, c
             <div className="relative flex items-center">
               <select className={`${inputClass} appearance-none pr-[20px] cursor-pointer`}>
                 <option value="" />
+                {options?.map(o => <option key={o} value={o}>{o}</option>)}
               </select>
               <div className="absolute right-0 pointer-events-none">
                 <ChevronDownIcon />
@@ -563,7 +564,7 @@ function InfoBasicaForm({ onFechaClick, selectedDate }: { onFechaClick: () => vo
         Información Básica
       </p>
 
-      <FieldBox label="Tipo de Nota*" chevron withAdd withEdit />
+      <FieldBox label="Tipo de Nota*" chevron withAdd withEdit options={['Foto Nota','Video','Galería','Columna','Caricatura','Patrocinada']} />
       <FieldBox label="Sección" chevron />
       <FieldBox label="Subsección" chevron />
       <FieldBox label="Título*" tall />
