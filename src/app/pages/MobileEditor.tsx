@@ -663,12 +663,17 @@ export default function MobileEditor() {
             <InfoBasicaForm />
           ) : (
             <div className="flex flex-col gap-[12px] p-[12px]">
-              <p
-                className="font-['Roboto',sans-serif] font-medium leading-[1.3] text-[#b1b1b1] w-full"
+              <textarea
+                placeholder="Título de la nota"
+                rows={1}
+                className="w-full font-['Roboto',sans-serif] font-medium leading-[1.3] text-black bg-transparent border-none outline-none resize-none overflow-hidden placeholder-[#b1b1b1]"
                 style={{ fontSize: 28 }}
-              >
-                Título de la nota
-              </p>
+                onInput={(e) => {
+                  const el = e.currentTarget;
+                  el.style.height = 'auto';
+                  el.style.height = el.scrollHeight + 'px';
+                }}
+              />
               <p
                 className="font-['Roboto',sans-serif] font-medium leading-[1.4] text-[#b1b1b1] w-full"
                 style={{ fontSize: 20 }}
