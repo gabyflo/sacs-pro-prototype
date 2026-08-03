@@ -361,10 +361,49 @@ const TOOLBAR_TOOLS = [
   { icon: <HtmlTagIcon />, label: "HTML" },
 ];
 
+// ── Placeholder menu icons ────────────────────────────────────────────────────
+
+const PLUS_MENU_ITEMS = [
+  { label: "Galería", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#585858" strokeWidth="1.5"/><path d="M3 16l5-5 4 4 3-3 6 4" stroke="#585858" strokeWidth="1.5" strokeLinejoin="round"/><circle cx="8.5" cy="8.5" r="1.5" fill="#585858"/></svg> },
+  { label: "Script", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><polyline points="16 18 22 12 16 6" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><polyline points="8 6 2 12 8 18" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+  { label: "Cita Textual", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="#585858"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg> },
+  { label: "Web Insert", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#585858" strokeWidth="1.5"/><path d="M3 9h18M9 21V9" stroke="#585858" strokeWidth="1.5"/></svg> },
+  { label: "Números", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M10 6h11M10 12h11M10 18h11M4 6h1v4M4 10h2M4 14h2a1 1 0 0 1 0 2H4l2 2H4" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+  { label: "Bullets", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><line x1="9" y1="6" x2="20" y2="6" stroke="#585858" strokeWidth="1.5" strokeLinecap="round"/><line x1="9" y1="12" x2="20" y2="12" stroke="#585858" strokeWidth="1.5" strokeLinecap="round"/><line x1="9" y1="18" x2="20" y2="18" stroke="#585858" strokeWidth="1.5" strokeLinecap="round"/><circle cx="4" cy="6" r="1.5" fill="#585858"/><circle cx="4" cy="12" r="1.5" fill="#585858"/><circle cx="4" cy="18" r="1.5" fill="#585858"/></svg> },
+  { label: "Cronología", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><circle cx="12" cy="12" r="9" stroke="#585858" strokeWidth="1.5"/><polyline points="12 7 12 12 15 15" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+  { label: "Cifras", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="3" y="12" width="4" height="9" rx="1" fill="#585858"/><rect x="10" y="8" width="4" height="13" rx="1" fill="#585858"/><rect x="17" y="4" width="4" height="17" rx="1" fill="#585858"/></svg> },
+  { label: "Contenido Relacionado", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+  { label: "Video", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="2" y="6" width="14" height="12" rx="2" stroke="#585858" strokeWidth="1.5"/><path d="M16 10l6-4v12l-6-4V10z" stroke="#585858" strokeWidth="1.5" strokeLinejoin="round"/></svg> },
+  { label: "Adjunto", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" stroke="#585858" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+  { label: "Encuesta", icon: <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#585858" strokeWidth="1.5"/><path d="M9 9h6M9 12h6M9 15h4" stroke="#585858" strokeWidth="1.5" strokeLinecap="round"/></svg> },
+];
+
 // ── Main page ─────────────────────────────────────────────────────────────────
+
+const DOTS_MENU_ITEMS = [
+  { label: "Publicar", color: "#5c96f6" },
+  { label: "Desactivar", color: "#585858" },
+  { label: "Eliminar", color: "#585858" },
+  { label: "Priorizar", color: "#979797" },
+  { label: "Clonar", color: "#585858" },
+  { label: "Log", color: "#585858" },
+  { label: "Flush Facebook", color: "#585858" },
+  { label: "Propiedades", color: "#585858" },
+  { label: "Template", color: "#585858" },
+  { label: "Encuesta", color: "#585858" },
+];
 
 export default function MobileEditor() {
   const [showEditorMenu, setShowEditorMenu] = useState(false);
+  const [showDotsMenu, setShowDotsMenu] = useState(false);
+  const [showSearchPanel, setShowSearchPanel] = useState(false);
+  const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [copied, setCopied] = useState<'id' | 'url' | null>(null);
+
+  function handleCopy(type: 'id' | 'url') {
+    setCopied(type);
+    setTimeout(() => setCopied(null), 2000);
+  }
 
   const editorTypes = [
     "Editor de Texto",
@@ -387,9 +426,9 @@ export default function MobileEditor() {
           style={{ height: 50, boxShadow: "0 1px 0 rgba(218,219,224,0.25)" }}
         >
           <div className="flex items-center gap-[4px]">
-            <div className="flex items-center justify-center w-[32px] h-[32px]">
+            <button className="flex items-center justify-center w-[32px] h-[32px]" onClick={() => setShowSearchPanel(v => !v)}>
               <HamburgerIcon />
-            </div>
+            </button>
             <span className="font-['Roboto',sans-serif] font-medium text-[14px] text-[#373737] leading-[21px]">
               SACS Pro
             </span>
@@ -418,10 +457,14 @@ export default function MobileEditor() {
               <button className="flex items-center justify-center w-[32px] h-full" style={{ width: '42px', height: '42px' }}>
                 <RedoIcon />
               </button>
-              <button className="flex items-center justify-center w-[32px] h-full" style={{ width: '42px' }}>
+              <button className="flex items-center justify-center w-[32px] h-full" style={{ width: '42px' }} onClick={() => setShowPlusMenu(v => !v)}>
                 <PlusCircleIcon />
               </button>
-              <button className="flex items-center justify-center w-[32px] h-full px-[0px]" style={{ paddingLeft: '0px', paddingRight: '0px', width: '42px' }}>
+              <button
+                className="flex items-center justify-center w-[32px] h-full px-[0px]"
+                style={{ paddingLeft: '0px', paddingRight: '0px', width: '42px' }}
+                onClick={() => setShowDotsMenu(v => !v)}
+              >
                 <ThreeDotsIcon />
               </button>
             </div>
@@ -430,22 +473,36 @@ export default function MobileEditor() {
           {/* Bottom row */}
           <div className="flex items-center gap-[16px] h-[48px]">
             {/* ID */}
-            <div className="flex items-center">
-              <div className="w-[32px] h-[32px] flex items-center justify-center">
-                <CopyIcon />
-              </div>
-              <span className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#6b7280] leading-[21px] whitespace-nowrap">
-                ID: 2159109
-              </span>
+            <div className="relative flex items-center">
+              <button className="flex items-center" onClick={() => handleCopy('id')}>
+                <div className="w-[32px] h-[32px] flex items-center justify-center">
+                  <CopyIcon />
+                </div>
+                <span className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#6b7280] leading-[21px] whitespace-nowrap">
+                  ID: 2159109
+                </span>
+              </button>
+              {copied === 'id' && (
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-[4px] bg-[#373737] text-white text-[12px] px-[8px] py-[4px] rounded-[4px] whitespace-nowrap pointer-events-none">
+                  copiado
+                </div>
+              )}
             </div>
             {/* URL */}
-            <div className="flex items-center">
-              <div className="w-[32px] h-[32px] flex items-center justify-center">
-                <CopyIcon />
-              </div>
-              <span className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#0d6efd] leading-[21px] whitespace-nowrap">
-                Ir a URL
-              </span>
+            <div className="relative flex items-center">
+              <button className="flex items-center" onClick={() => handleCopy('url')}>
+                <div className="w-[32px] h-[32px] flex items-center justify-center">
+                  <CopyIcon />
+                </div>
+                <span className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#0d6efd] leading-[21px] whitespace-nowrap">
+                  Ir a URL
+                </span>
+              </button>
+              {copied === 'url' && (
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-[4px] bg-[#373737] text-white text-[12px] px-[8px] py-[4px] rounded-[4px] whitespace-nowrap pointer-events-none">
+                  copiado
+                </div>
+              )}
             </div>
             {/* SEO badge */}
             <div className="bg-[#fdecea] flex items-center justify-center px-[8px] py-[4px] rounded-full">
@@ -537,6 +594,88 @@ export default function MobileEditor() {
           {/* Android keyboard */}
           <AndroidKeyboard />
         </div>
+
+        {/* ── Search panel (hamburger) ── */}
+        {showSearchPanel && (
+          <>
+            <div
+              className="absolute left-0 right-0 bottom-0 bg-[#d9d9d9] mix-blend-multiply z-20"
+              style={{ top: 50 }}
+              onClick={() => setShowSearchPanel(false)}
+            />
+            <div className="absolute left-0 right-0 bg-white z-30" style={{ top: 50 }}>
+              <div className="px-[12px] py-[8px]">
+                <div className="flex items-center bg-[#eeeeee] rounded-[10px] px-[10px] gap-[8px]" style={{ height: 36 }}>
+                  <svg fill="none" height="16" viewBox="0 0 16 16" width="16">
+                    <path d="M7.333 12.667A5.333 5.333 0 1 0 7.333 2a5.333 5.333 0 0 0 0 10.667Z" stroke="#8e8e93" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                    <path d="M14 14l-2.9-2.9" stroke="#8e8e93" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+                  </svg>
+                  <span className="font-['Roboto',sans-serif] font-normal text-[16px] text-[#8e8e93] leading-[24px]">
+                    Búsqueda
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ── Plus → Añadir Placeholders menu ── */}
+        {showPlusMenu && (
+          <>
+            <div
+              className="absolute inset-0 bg-[#d9d9d9] mix-blend-multiply z-20"
+              onClick={() => setShowPlusMenu(false)}
+            />
+            <div className="absolute top-0 bottom-0 right-0 bg-white z-30 flex flex-col overflow-hidden" style={{ width: 240 }}>
+              <div className="bg-[#f5f5f5] px-[16px] flex items-center shrink-0" style={{ height: 48 }}>
+                <span className="font-['Roboto',sans-serif] font-medium text-[14px] text-[#585858] leading-[21px]">
+                  Añadir Placeholders
+                </span>
+              </div>
+              <div className="overflow-y-auto flex-1">
+                {PLUS_MENU_ITEMS.map((item) => (
+                  <button
+                    key={item.label}
+                    className="w-full flex items-center gap-[12px] px-[16px] shrink-0 hover:bg-[#f5f5f5] transition-colors"
+                    style={{ minHeight: 48 }}
+                    onClick={() => setShowPlusMenu(false)}
+                  >
+                    {item.icon}
+                    <span className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#373737] leading-[22px] whitespace-nowrap">
+                      {item.label}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* ── Three-dots dropdown menu ── */}
+        {showDotsMenu && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-[#d9d9d9] mix-blend-multiply"
+              onClick={() => setShowDotsMenu(false)}
+            />
+            {/* Menu panel */}
+            <div className="absolute top-0 right-0 bg-white border border-[#dadce0] flex flex-col py-[6px] overflow-y-auto" style={{ width: 226, bottom: 0 }}>
+              {DOTS_MENU_ITEMS.map((item) => (
+                <button
+                  key={item.label}
+                  className="flex items-center px-[16px] shrink-0 text-left hover:bg-[#f5f5f5] transition-colors"
+                  style={{ minHeight: 48, color: item.color }}
+                  onClick={() => setShowDotsMenu(false)}
+                >
+                  <span className="font-['Roboto',sans-serif] font-normal text-[16px] leading-[24px] whitespace-nowrap">
+                    {item.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
