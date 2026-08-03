@@ -478,10 +478,11 @@ function DatePickerOverlay({ value, onChange, onClose }: {
                   <button
                     key={ci}
                     onClick={() => { if (cell.type === 'cur') { onChange(new Date(year, month, cell.day)); } }}
-                    className={`flex items-center justify-center rounded-[8px] ${
-                      sel ? 'bg-[#5c96f6]' :
-                      tod ? 'bg-[#e8f0fe]' :
-                      cell.type === 'cur' ? 'bg-[#f4f4f5]' : ''
+                    className={`flex items-center justify-center rounded-[8px] transition-colors ${
+                      sel ? 'bg-[#5c96f6] hover:bg-[#4a85e8]' :
+                      tod ? 'bg-[#e8f0fe] hover:bg-[#d2e3fc]' :
+                      cell.type === 'cur' ? 'bg-[#f4f4f5] hover:bg-[#e8f0fe]' :
+                      'hover:bg-[#f4f4f5]'
                     }`}
                     style={{ height: 40 }}
                   >
