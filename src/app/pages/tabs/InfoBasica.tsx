@@ -83,13 +83,12 @@ function Toggle({ checked, onChange, label }: {
         aria-checked={checked}
         onClick={() => onChange(!checked)}
         className={`relative w-[44px] h-[24px] rounded-full transition-colors duration-200 focus:outline-none shrink-0 ${
-          checked ? "bg-[#1976d2]" : "bg-[#E0E0E0]"
+          checked ? "bg-[#5c96f6]" : "bg-[#E0E0E0]"
         }`}
       >
         <span
-          className={`absolute top-[2px] w-[20px] h-[20px] rounded-full shadow-sm transition-transform duration-200 ${
-            checked ? "bg-white translate-x-[22px]" : "bg-[#9E9E9E] translate-x-[2px]"
-          }`}
+          className="absolute top-[2px] right-[2px] w-[20px] h-[20px] bg-white rounded-full shadow-sm transition-transform duration-200"
+          style={{ transform: checked ? "translateX(0px)" : "translateX(-22px)" }}
         />
       </button>
       <span className="text-[14px] text-[rgba(0,0,0,0.87)] font-['Roboto',sans-serif] select-none">{label}</span>
