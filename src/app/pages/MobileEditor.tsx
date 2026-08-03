@@ -437,7 +437,7 @@ export default function MobileEditor() {
             className="rounded-full flex items-center justify-center overflow-hidden"
             style={{ width: 30, height: 30, background: "#5c96f6" }}
           >
-            <span className="font-['Roboto',sans-serif] font-medium text-[10px] text-white">GC</span>
+            <span className="font-['Roboto',sans-serif] font-medium text-[16px] text-white">GC</span>
           </div>
         </header>
 
