@@ -299,7 +299,7 @@ function AndroidKeyboard() {
           <div
             key={key}
             className="flex-1 bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex flex-col items-center justify-end pb-[5px] pt-[3px] relative"
-            style={{ minWidth: 0 }}
+            style={{ minWidth: 0, height: 42 }}
           >
             <span className="absolute top-[3px] right-[4px] text-[#455a64] text-[9px] font-medium leading-none opacity-80">
               {NUMBER_ROW[i]}
@@ -314,7 +314,7 @@ function AndroidKeyboard() {
         {KEYBOARD_ROWS[1].map((key) => (
           <div
             key={key}
-            className="flex-1 bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center py-[8px]"
+            className="flex-1 bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center h-[42px]"
             style={{ minWidth: 0 }}
           >
             <span className="text-[#37474f] text-[18px] font-medium leading-none">{key}</span>
@@ -324,40 +324,40 @@ function AndroidKeyboard() {
 
       {/* Row 3 — shift + letters + backspace */}
       <div className="flex items-center justify-center gap-[5px] mb-[8px] px-[4px]">
-        <div className="bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[40px] h-[40px] shrink-0">
+        <div className="bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[40px] h-[42px] shrink-0">
           <ShiftIcon />
         </div>
         <div className="flex flex-1 justify-center gap-[5px]">
           {KEYBOARD_ROWS[2].map((key) => (
             <div
               key={key}
-              className="flex-1 bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center py-[8px]"
+              className="flex-1 bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center h-[42px]"
               style={{ minWidth: 0 }}
             >
               <span className="text-[#37474f] text-[18px] font-medium leading-none">{key}</span>
             </div>
           ))}
         </div>
-        <div className="bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[40px] h-[40px] shrink-0">
+        <div className="bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[40px] h-[42px] shrink-0">
           <BackspaceIcon />
         </div>
       </div>
 
       {/* Bottom row — ?123, comma, space, period, mic */}
       <div className="flex items-center gap-[5px] px-[4px]">
-        <div className="bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center px-[6px] h-[40px] shrink-0">
+        <div className="bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center px-[6px] h-[42px] shrink-0">
           <span className="text-[#37474f] text-[13px] font-medium">?123</span>
         </div>
-        <div className="bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[30px] h-[40px] shrink-0">
+        <div className="bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[30px] h-[42px] shrink-0">
           <span className="text-[#37474f] text-[18px] font-medium">,</span>
         </div>
-        <div className="flex-1 bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center h-[40px]">
+        <div className="flex-1 bg-[#b8bec5] rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center h-[42px]">
           <span className="text-[#37474f] text-[14px]" />
         </div>
-        <div className="bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[30px] h-[40px] shrink-0">
+        <div className="bg-white rounded-[5px] shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[30px] h-[42px] shrink-0">
           <span className="text-[#37474f] text-[18px] font-medium">.</span>
         </div>
-        <div className="bg-[#8eb6f8] rounded-full shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[42px] h-[40px] shrink-0">
+        <div className="bg-[#8eb6f8] rounded-full shadow-[0_1px_0_rgba(0,0,0,0.3)] flex items-center justify-center w-[42px] h-[42px] shrink-0">
           <MicrophoneIcon />
         </div>
       </div>
