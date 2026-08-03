@@ -79,6 +79,22 @@ function ChevronDownIcon() {
   );
 }
 
+function ChevronLeftIcon() {
+  return (
+    <svg fill="none" height="20" viewBox="0 0 20 20" width="20">
+      <path d="M12 4L6 10L12 16" stroke="#373737" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function ChevronRightIcon() {
+  return (
+    <svg fill="none" height="20" viewBox="0 0 20 20" width="20">
+      <path d="M8 4L14 10L8 16" stroke="#373737" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
 // ── Formatting-toolbar icons ──────────────────────────────────────────────────
 
 function BoldIcon() {
@@ -384,6 +400,110 @@ const TOOLBAR_TOOLS = [
   { icon: <HtmlTagIcon />, label: "HTML" },
 ];
 
+// ── Date picker ───────────────────────────────────────────────────────────────
+
+const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DAY_NAMES = ['Lu','Ma','Mi','Ju','Vi','Sa','Do'];
+
+function DatePickerOverlay({ value, onChange, onClose }: {
+  value: Date | null;
+  onChange: (d: Date) => void;
+  onClose: () => void;
+}) {
+  const today = new Date();
+  const [view, setView] = useState(value ?? today);
+  const year = view.getFullYear();
+  const month = view.getMonth();
+
+  const offset = (new Date(year, month, 1).getDay() + 6) % 7;
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrev = new Date(year, month, 0).getDate();
+
+  type Cell = { day: number; type: 'prev' | 'cur' | 'next' };
+  const cells: Cell[] = [];
+  for (let i = offset - 1; i >= 0; i--) cells.push({ day: daysInPrev - i, type: 'prev' });
+  for (let d = 1; d <= daysInMonth; d++) cells.push({ day: d, type: 'cur' });
+  while (cells.length % 7 !== 0) cells.push({ day: cells.length - daysInMonth - offset + 1, type: 'next' });
+
+  const weeks: Cell[][] = [];
+  for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+
+  const isSelected = (c: Cell) =>
+    c.type === 'cur' && value != null &&
+    value.getDate() === c.day && value.getMonth() === month && value.getFullYear() === year;
+
+  const isToday = (c: Cell) =>
+    c.type === 'cur' &&
+    today.getDate() === c.day && today.getMonth() === month && today.getFullYear() === year;
+
+  return (
+    <>
+      <div className="absolute inset-0 z-40" style={{ background: 'rgba(0,0,0,0.25)' }} onClick={onClose} />
+      <div className="absolute left-0 right-0 bottom-0 bg-white z-50 rounded-t-[16px]">
+        {/* Handle */}
+        <div className="flex justify-center pt-[10px] pb-[4px]">
+          <div className="bg-[#dadce0] rounded-full" style={{ width: 36, height: 4 }} />
+        </div>
+
+        {/* Month nav */}
+        <div className="flex items-center justify-between px-[16px] py-[10px]">
+          <button onClick={() => setView(new Date(year, month - 1, 1))} className="w-[32px] h-[32px] flex items-center justify-center">
+            <ChevronLeftIcon />
+          </button>
+          <span className="font-['Roboto',sans-serif] font-medium text-[16px] text-[#373737]">
+            {MONTH_NAMES[month]} {year}
+          </span>
+          <button onClick={() => setView(new Date(year, month + 1, 1))} className="w-[32px] h-[32px] flex items-center justify-center">
+            <ChevronRightIcon />
+          </button>
+        </div>
+
+        {/* Day headers */}
+        <div className="grid grid-cols-7 px-[12px] mb-[4px]">
+          {DAY_NAMES.map(d => (
+            <div key={d} className="flex items-center justify-center h-[32px]">
+              <span className="font-['Roboto',sans-serif] text-[13px] text-[#9ca3af] font-medium">{d}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Calendar grid */}
+        <div className="px-[12px] pb-[20px]">
+          {weeks.map((week, wi) => (
+            <div key={wi} className="grid grid-cols-7 gap-[4px] mb-[4px]">
+              {week.map((cell, ci) => {
+                const sel = isSelected(cell);
+                const tod = isToday(cell);
+                return (
+                  <button
+                    key={ci}
+                    onClick={() => { if (cell.type === 'cur') { onChange(new Date(year, month, cell.day)); } }}
+                    className={`flex items-center justify-center rounded-[8px] ${
+                      sel ? 'bg-[#5c96f6]' :
+                      tod ? 'bg-[#e8f0fe]' :
+                      cell.type === 'cur' ? 'bg-[#f4f4f5]' : ''
+                    }`}
+                    style={{ height: 40 }}
+                  >
+                    <span className={`font-['Roboto',sans-serif] text-[14px] ${
+                      sel ? 'text-white font-medium' :
+                      cell.type !== 'cur' ? 'text-[#d1d5db]' :
+                      tod ? 'text-[#5c96f6] font-medium' :
+                      'text-[#373737]'
+                    }`}>
+                      {cell.day}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
 // ── Info Básica form ──────────────────────────────────────────────────────────
 
 function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, counter, tall = false }: {
@@ -428,9 +548,13 @@ function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, c
   );
 }
 
-function InfoBasicaForm() {
+function InfoBasicaForm({ onFechaClick, selectedDate }: { onFechaClick: () => void; selectedDate: Date | null }) {
   const [ocultarPublicidad, setOcultarPublicidad] = useState(false);
   const [mostrarEtiqueta, setMostrarEtiqueta] = useState(false);
+
+  const dateLabel = selectedDate
+    ? selectedDate.toLocaleDateString('es-DO', { day: '2-digit', month: '2-digit', year: 'numeric' })
+    : '';
 
   return (
     <div className="flex flex-col gap-[8px] p-[12px]">
@@ -445,7 +569,16 @@ function InfoBasicaForm() {
       <FieldBox label="Título de SEO" tall counter="60 disponibles 0 escritos" />
       <FieldBox label="Subtítulo*" tall />
       <FieldBox label="Subtítulo SEO *" tall counter="150 disponibles 0 escritos" />
-      <FieldBox label="Fecha*" chevron />
+
+      {/* Fecha — custom field opens date picker */}
+      <div className="border border-[#dadce0] rounded-[4px] px-[12px] pt-[6px] pb-[2px]" style={{ minHeight: 48 }}>
+        <label className="font-['Roboto',sans-serif] text-[11px] text-[#9ca3af] block">Fecha*</label>
+        <button type="button" onClick={onFechaClick} className="w-full flex items-center justify-between pb-[6px]">
+          <span className="font-['Roboto',sans-serif] text-[14px] text-[#373737]">{dateLabel}</span>
+          <ChevronDownIcon />
+        </button>
+      </div>
+
       <FieldBox label="Hora*" chevron />
       <FieldBox label="Lugar *" chevron withAdd withEdit />
 
@@ -505,6 +638,8 @@ export default function MobileEditor() {
   const [showEditorMenu, setShowEditorMenu] = useState(false);
   const [showDotsMenu, setShowDotsMenu] = useState(false);
   const [selectedEditor, setSelectedEditor] = useState("Editor de Texto");
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [showSearchPanel, setShowSearchPanel] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [copied, setCopied] = useState<'id' | 'url' | null>(null);
@@ -660,7 +795,7 @@ export default function MobileEditor() {
         {/* ── Note Content Area ── */}
         <div className="flex-1 overflow-y-auto">
           {selectedEditor === "Info. Básica" ? (
-            <InfoBasicaForm />
+            <InfoBasicaForm onFechaClick={() => setShowDatePicker(true)} selectedDate={selectedDate} />
           ) : (
             <div className="flex flex-col gap-[12px] p-[12px]">
               <textarea
@@ -722,6 +857,15 @@ export default function MobileEditor() {
           {/* Android keyboard */}
           <AndroidKeyboard />
         </div>
+
+        {/* ── Date picker ── */}
+        {showDatePicker && (
+          <DatePickerOverlay
+            value={selectedDate}
+            onChange={(d) => { setSelectedDate(d); setShowDatePicker(false); }}
+            onClose={() => setShowDatePicker(false)}
+          />
+        )}
 
         {/* ── Search panel (hamburger) ── */}
         {showSearchPanel && (
