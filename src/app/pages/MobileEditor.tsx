@@ -242,10 +242,7 @@ function AddSquareIcon() {
 
 function PenEditIcon() {
   return (
-    <svg fill="none" height="18" viewBox="0 0 18 18" width="18">
-      <path d="M10 3h5v5M14 4l-7 7" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M8 5H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
+    <img alt="" src="https://www.figma.com/api/mcp/asset/e30581c4-fc0d-4f50-8177-1d780cd99f5a" width="20" height="20" />
   );
 }
 
