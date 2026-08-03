@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import svgPaths from "../../imports/MacBookPro164-1/svg-c4ntp5eeyk";
 
 // ── App-header icons ──────────────────────────────────────────────────────────
@@ -229,6 +229,35 @@ function HtmlTagIcon() {
   );
 }
 
+// ── Info Básica form icons ────────────────────────────────────────────────────
+
+function AddSquareIcon() {
+  return (
+    <svg fill="none" height="18" viewBox="0 0 18 18" width="18">
+      <rect x="1" y="1" width="16" height="16" rx="3" stroke="#6b7280" strokeWidth="1.5" />
+      <path d="M9 5v8M5 9h8" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function PenEditIcon() {
+  return (
+    <svg fill="none" height="18" viewBox="0 0 18 18" width="18">
+      <path d="M10 3h5v5M14 4l-7 7" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 5H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-4" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function Toggle({ checked, onChange }: { checked: boolean; onChange: () => void }) {
+  return (
+    <button onClick={onChange} className="relative flex-shrink-0" style={{ width: 51, height: 31 }}>
+      <div className={`absolute inset-0 rounded-full transition-colors duration-200 ${checked ? 'bg-[#34c759]' : 'bg-[#e5e7eb]'}`} />
+      <div className={`absolute top-[2px] w-[27px] h-[27px] bg-white rounded-full shadow-md transition-transform duration-200 ${checked ? 'translate-x-[22px]' : 'translate-x-[2px]'}`} />
+    </button>
+  );
+}
+
 // ── Keyboard icons ────────────────────────────────────────────────────────────
 
 function ShiftIcon() {
@@ -361,6 +390,78 @@ const TOOLBAR_TOOLS = [
   { icon: <HtmlTagIcon />, label: "HTML" },
 ];
 
+// ── Info Básica form ──────────────────────────────────────────────────────────
+
+function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, counter, tall = false, children }: {
+  label: string; chevron?: boolean; withAdd?: boolean; withEdit?: boolean; counter?: string; tall?: boolean; children?: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="flex items-start gap-[8px]">
+        <div className={`flex-1 border border-[#dadce0] rounded-[4px] px-[12px] pt-[6px] pb-[8px] flex ${chevron ? 'items-center justify-between' : 'flex-col'}`} style={{ minHeight: tall ? 72 : 48 }}>
+          <span className="font-['Roboto',sans-serif] text-[11px] text-[#9ca3af] whitespace-nowrap">{label}</span>
+          {children}
+          {chevron && <ChevronDownIcon />}
+        </div>
+        {withAdd && (
+          <button className="flex-shrink-0 border border-[#dadce0] rounded-[4px] flex items-center justify-center" style={{ width: 32, minHeight: 48 }}>
+            <AddSquareIcon />
+          </button>
+        )}
+        {withEdit && (
+          <button className="flex-shrink-0 border border-[#dadce0] rounded-[4px] flex items-center justify-center" style={{ width: 32, minHeight: 48 }}>
+            <PenEditIcon />
+          </button>
+        )}
+      </div>
+      {counter && (
+        <span className="font-['Roboto',sans-serif] text-[11px] text-[#9ca3af] mt-[2px] block">{counter}</span>
+      )}
+    </div>
+  );
+}
+
+function InfoBasicaForm() {
+  const [ocultarPublicidad, setOcultarPublicidad] = useState(false);
+  const [mostrarEtiqueta, setMostrarEtiqueta] = useState(false);
+
+  return (
+    <div className="flex flex-col gap-[8px] p-[12px]">
+      <p className="font-['Roboto',sans-serif] font-bold text-[18px] text-[#373737] leading-[27px]">
+        Información Básica
+      </p>
+
+      <FieldBox label="Tipo de Nota*" chevron withAdd withEdit />
+      <FieldBox label="Sección" chevron />
+      <FieldBox label="Subsección" chevron />
+      <FieldBox label="Título*" tall />
+      <FieldBox label="Título de SEO" tall counter="60 disponibles 0 escritos" />
+      <FieldBox label="Subtítulo*" tall />
+      <FieldBox label="Subtítulo SEO *" tall counter="150 disponibles 0 escritos" />
+      <FieldBox label="Fecha*" chevron />
+      <FieldBox label="Hora*" chevron />
+      <FieldBox label="Lugar *" chevron withAdd withEdit />
+
+      <FieldBox label="Autor *" withAdd />
+      <span className="font-['Roboto',sans-serif] text-[11px] text-[#9ca3af] -mt-[4px]">Supportive Text</span>
+
+      <FieldBox label="Keywords SEO*" tall />
+
+      <div className="flex items-center justify-between py-[4px]">
+        <span className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#373737]">Ocultar Publicidad</span>
+        <Toggle checked={ocultarPublicidad} onChange={() => setOcultarPublicidad(v => !v)} />
+      </div>
+
+      <div className="flex items-center justify-between py-[4px]">
+        <span className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#373737] pr-[12px]">Mostrar Etiqueta "Publicidad" en Portada</span>
+        <Toggle checked={mostrarEtiqueta} onChange={() => setMostrarEtiqueta(v => !v)} />
+      </div>
+
+      <FieldBox label="MetaDato Principal*" tall withAdd />
+    </div>
+  );
+}
+
 // ── Placeholder menu icons ────────────────────────────────────────────────────
 
 const PLUS_MENU_ITEMS = [
@@ -396,6 +497,7 @@ const DOTS_MENU_ITEMS = [
 export default function MobileEditor() {
   const [showEditorMenu, setShowEditorMenu] = useState(false);
   const [showDotsMenu, setShowDotsMenu] = useState(false);
+  const [selectedEditor, setSelectedEditor] = useState("Editor de Texto");
   const [showSearchPanel, setShowSearchPanel] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [copied, setCopied] = useState<'id' | 'url' | null>(null);
@@ -527,7 +629,7 @@ export default function MobileEditor() {
             style={{ borderRadius: 6 }}
           >
             <span className="font-['Roboto',sans-serif] font-normal text-[16px] text-[#373737] leading-[24px]">
-              Editor de Texto
+              {selectedEditor}
             </span>
             <div className={`transition-transform duration-150 ${showEditorMenu ? "rotate-180" : ""}`}>
               <ChevronDownIcon />
@@ -538,7 +640,7 @@ export default function MobileEditor() {
               {editorTypes.map((type) => (
                 <button
                   key={type}
-                  onClick={() => setShowEditorMenu(false)}
+                  onClick={() => { setSelectedEditor(type); setShowEditorMenu(false); }}
                   className="w-full text-left px-[16px] h-[44px] font-['Roboto',sans-serif] text-[15px] text-[#373737] hover:bg-[#f5f5f5] transition-colors"
                 >
                   {type}
@@ -550,25 +652,29 @@ export default function MobileEditor() {
 
         {/* ── Note Content Area ── */}
         <div className="flex-1 overflow-y-auto">
-          <div className="flex flex-col gap-[12px] p-[12px]">
-            <p
-              className="font-['Roboto',sans-serif] font-medium leading-[1.3] text-[#b1b1b1] w-full"
-              style={{ fontSize: 28 }}
-            >
-              Título de la nota
-            </p>
-            <p
-              className="font-['Roboto',sans-serif] font-medium leading-[1.4] text-[#b1b1b1] w-full"
-              style={{ fontSize: 20 }}
-            >
-              Subtitulo de la nota
-            </p>
-            <p
-              className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#b1b1b1] leading-[21px]"
-            >
-              Cuerpo de la nota
-            </p>
-          </div>
+          {selectedEditor === "Info. Básica" ? (
+            <InfoBasicaForm />
+          ) : (
+            <div className="flex flex-col gap-[12px] p-[12px]">
+              <p
+                className="font-['Roboto',sans-serif] font-medium leading-[1.3] text-[#b1b1b1] w-full"
+                style={{ fontSize: 28 }}
+              >
+                Título de la nota
+              </p>
+              <p
+                className="font-['Roboto',sans-serif] font-medium leading-[1.4] text-[#b1b1b1] w-full"
+                style={{ fontSize: 20 }}
+              >
+                Subtitulo de la nota
+              </p>
+              <p
+                className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#b1b1b1] leading-[21px]"
+              >
+                Cuerpo de la nota
+              </p>
+            </div>
+          )}
         </div>
 
         {/* ── Bottom keyboard area ── */}
