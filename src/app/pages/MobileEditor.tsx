@@ -233,10 +233,7 @@ function HtmlTagIcon() {
 
 function AddSquareIcon() {
   return (
-    <svg fill="none" height="18" viewBox="0 0 18 18" width="18">
-      <rect x="1" y="1" width="16" height="16" rx="3" stroke="#6b7280" strokeWidth="1.5" />
-      <path d="M9 5v8M5 9h8" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
+    <img alt="" src="https://www.figma.com/api/mcp/asset/835dd992-c7b7-45f3-951a-ad8aa44ef38d" width="20" height="20" />
   );
 }
 
@@ -389,24 +386,37 @@ const TOOLBAR_TOOLS = [
 
 // ── Info Básica form ──────────────────────────────────────────────────────────
 
-function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, counter, tall = false, children }: {
-  label: string; chevron?: boolean; withAdd?: boolean; withEdit?: boolean; counter?: string; tall?: boolean; children?: React.ReactNode;
+function FieldBox({ label, chevron = false, withAdd = false, withEdit = false, counter, tall = false }: {
+  label: string; chevron?: boolean; withAdd?: boolean; withEdit?: boolean; counter?: string; tall?: boolean;
 }) {
+  const inputClass = "w-full font-['Roboto',sans-serif] text-[14px] text-[#373737] bg-transparent border-none outline-none pb-[6px]";
   return (
     <div>
       <div className="flex items-start gap-[8px]">
-        <div className={`flex-1 border border-[#dadce0] rounded-[4px] px-[12px] pt-[6px] pb-[8px] flex ${chevron ? 'items-center justify-between' : 'flex-col'}`} style={{ minHeight: tall ? 72 : 48 }}>
-          <span className="font-['Roboto',sans-serif] text-[11px] text-[#9ca3af] whitespace-nowrap">{label}</span>
-          {children}
-          {chevron && <ChevronDownIcon />}
+        <div className="flex-1 border border-[#dadce0] rounded-[4px] px-[12px] pt-[6px]" style={{ minHeight: tall ? 72 : 48 }}>
+          <label className="font-['Roboto',sans-serif] text-[11px] text-[#9ca3af] block">{label}</label>
+          {chevron ? (
+            <div className="relative flex items-center">
+              <select className={`${inputClass} appearance-none pr-[20px] cursor-pointer`}>
+                <option value="" />
+              </select>
+              <div className="absolute right-0 pointer-events-none">
+                <ChevronDownIcon />
+              </div>
+            </div>
+          ) : tall ? (
+            <textarea className={`${inputClass} resize-none`} rows={2} />
+          ) : (
+            <input type="text" className={inputClass} />
+          )}
         </div>
         {withAdd && (
-          <button className="flex-shrink-0 border border-[#dadce0] rounded-[4px] flex items-center justify-center" style={{ width: 32, minHeight: 48 }}>
+          <button type="button" className="flex-shrink-0 flex items-center justify-center" style={{ width: 32, minHeight: 48 }}>
             <AddSquareIcon />
           </button>
         )}
         {withEdit && (
-          <button className="flex-shrink-0 border border-[#dadce0] rounded-[4px] flex items-center justify-center" style={{ width: 32, minHeight: 48 }}>
+          <button type="button" className="flex-shrink-0 flex items-center justify-center" style={{ width: 32, minHeight: 48 }}>
             <PenEditIcon />
           </button>
         )}
