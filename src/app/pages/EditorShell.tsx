@@ -26,8 +26,8 @@ function CaretDownIcon() {
 }
 function CopyIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#6b7280">
-      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+    <svg width="16" height="16" viewBox="0 0 20 20" fill="#373737">
+      <path d="M8.75 0C7.37109 0 6.25 1.12109 6.25 2.5V11.25C6.25 12.6289 7.37109 13.75 8.75 13.75H17.5C18.8789 13.75 20 12.6289 20 11.25V2.5C20 1.12109 18.8789 0 17.5 0H8.75ZM2.5 6.25C1.12109 6.25 0 7.37109 0 8.75V17.5C0 18.8789 1.12109 20 2.5 20H11.25C12.6289 20 13.75 18.8789 13.75 17.5V15H11.25V17.5H2.5V8.75H5V6.25H2.5Z" />
     </svg>
   );
 }
@@ -55,8 +55,8 @@ export default function EditorShell() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  const [title, setTitle] = useState("Cinco hábitos que están transformando la productividad remota en 2026");
+  const [subtitle, setSubtitle] = useState("Equipos distribuidos reportan mejoras de hasta 30% en entregas al adoptar estas prácticas");
   const [isSaving, setIsSaving] = useState(false);
   const [showPublishMenu, setShowPublishMenu] = useState(false);
   const [showHeaderDotsMenu, setShowHeaderDotsMenu] = useState(false);

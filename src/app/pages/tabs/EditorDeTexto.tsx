@@ -46,6 +46,23 @@ function HtmlIcon() {
   );
 }
 function PlusCircleIcon() { return <svg fill="none" height="20" viewBox="0 0 20 20" width="20"><g clipPath="url(#et-pc)"><path d={svgPaths.p2e749b00} fill="#373737" /></g><defs><clipPath id="et-pc"><rect fill="white" height="20" width="20" /></clipPath></defs></svg>; }
+function DragHandleIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+      <rect x="1" y="1"    width="10" height="1.5" rx="0.75" />
+      <rect x="1" y="5.25" width="10" height="1.5" rx="0.75" />
+      <rect x="1" y="9.5"  width="10" height="1.5" rx="0.75" />
+    </svg>
+  );
+}
+function SmallPlusIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+      <circle cx="11" cy="11" r="10" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M11 6.5V15.5M6.5 11H15.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -313,13 +330,45 @@ function ParagraphBlock({ block, pendingFocusRef, onContentChange, onFocus, onBl
 export default function EditorDeTexto() {
   const { title, setTitle, subtitle, setSubtitle } = useOutletContext<EditorContext>();
 
-  const [blocks, setBlocks] = useState<Block[]>([]);
+  const INITIAL_BLOCKS: Block[] = [
+    { id: "b1",  type: "paragraph", content: "<strong>El cambio ya no es una tendencia, es la norma</strong>" },
+    { id: "b2",  type: "paragraph", content: "El trabajo remoto dejó de ser una excepción para convertirse en la norma en buena parte de las industrias tecnológicas. Sin embargo, no todos los equipos logran los mismos resultados. Un estudio reciente identificó cinco hábitos clave que diferencian a los equipos de alto rendimiento de aquellos que siguen luchando contra la desorganización y el agotamiento por videollamadas." },
+    { id: "b3",  type: "paragraph", content: "<strong>1. Bloques de tiempo sin reuniones</strong>" },
+    { id: "b4",  type: "paragraph", content: "Los equipos más productivos reservan al menos dos bloques diarios de trabajo profundo, sin interrupciones ni notificaciones. Esto permite avanzar en tareas complejas sin el costo cognitivo de cambiar constantemente de contexto." },
+    { id: "b5",  type: "paragraph", content: "<strong>2. Documentación asíncrona por defecto</strong>" },
+    { id: "b6",  type: "paragraph", content: "En lugar de depender de reuniones para transmitir información, estos equipos documentan decisiones, procesos y actualizaciones en espacios compartidos. Cualquier persona puede ponerse al día sin necesidad de agendar una llamada." },
+    { id: "b7",  type: "paragraph", content: "<strong>3. Checkpoints semanales breves</strong>" },
+    { id: "b8",  type: "paragraph", content: "No se trata de eliminar las reuniones, sino de hacerlas más eficientes. Un checkpoint de 15 minutos una vez por semana suele ser suficiente para alinear prioridades sin consumir horas productivas." },
+    { id: "b9",  type: "paragraph", content: "<strong>4. Límites claros de disponibilidad</strong>" },
+    { id: "b10", type: "paragraph", content: "Definir horarios de conexión y desconexión —y respetarlos— reduce el agotamiento y mejora la calidad del trabajo entregado. Los equipos de alto rendimiento normalizan decir \"fuera de horario\" sin culpa." },
+    { id: "b11", type: "paragraph", content: "<strong>5. Herramientas compartidas de seguimiento</strong>" },
+    { id: "b12", type: "paragraph", content: "El uso de tableros visibles para todo el equipo elimina la necesidad de preguntar constantemente \"¿cómo va esto?\" y da visibilidad real del progreso de cada persona." },
+    { id: "b13", type: "paragraph", content: "<strong>Resultados medibles</strong>" },
+    { id: "b14", type: "paragraph", content: "Los equipos que adoptaron al menos tres de estas prácticas reportaron una mejora del 30% en cumplimiento de plazos durante los últimos seis meses, junto con una reducción notable en el número de reuniones semanales. El dato más interesante: la satisfacción laboral también subió, sugiriendo que estos hábitos no solo mejoran los números, sino también la experiencia diaria del equipo." },
+  ];
+
+  const [blocks, setBlocks] = useState<Block[]>(INITIAL_BLOCKS);
   const [focusedBlockId, setFocusedBlockId] = useState<string | null>(null);
   const [hoveredBlockIndex, setHoveredBlockIndex] = useState<number | null>(null);
+  const [openPaletteIndex, setOpenPaletteIndex] = useState<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const dragStartIndex = useRef<number | null>(null);
 
   const titleRef = useRef<HTMLTextAreaElement>(null);
+  const subtitleRef = useRef<HTMLTextAreaElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const pendingFocusRef = useRef<string | null>(null);
+
+  useLayoutEffect(() => {
+    function resize(el: HTMLTextAreaElement | null) {
+      if (!el) return;
+      el.style.height = "0";
+      el.style.height = el.scrollHeight + "px";
+    }
+    resize(titleRef.current);
+    resize(subtitleRef.current);
+  }, [title, subtitle]);
 
   useEffect(() => {
     const el = titleRef.current;
@@ -358,7 +407,27 @@ export default function EditorDeTexto() {
     setBlocks(prev => prev.map(b => b.id === id ? { ...b, content: html } : b));
   }, []);
 
+  const reorderBlock = useCallback((from: number, to: number) => {
+    if (from === to) return;
+    setBlocks(prev => {
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(to, 0, moved);
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    function handle(e: MouseEvent) {
+      const palette = document.getElementById("block-palette-popup");
+      if (palette && !palette.contains(e.target as Node)) setOpenPaletteIndex(null);
+    }
+    document.addEventListener("mousedown", handle);
+    return () => document.removeEventListener("mousedown", handle);
+  }, []);
+
   return (
+    <>
     <div className="flex-1 overflow-y-auto bg-white">
       <FloatingToolbar />
       <div
@@ -377,7 +446,7 @@ export default function EditorDeTexto() {
             sel?.addRange(range);
           }
         }}
-        className="max-w-4xl mx-auto px-16 pb-64 min-h-full cursor-text"
+        className="max-w-4xl mx-auto pl-[100px] pr-16 pb-64 min-h-full cursor-text"
       >
 
         {/* Sticky toolbar */}
@@ -396,7 +465,7 @@ export default function EditorDeTexto() {
             { icon: <UnderlineIcon />, title: "Subrayado", onClick: () => document.execCommand("underline") },
             { icon: <LinkIcon />, title: "Enlace" },
             { icon: <CodeBlockIcon />, title: "Código" },
-            { icon: <IconActionsTrash />, title: "Eliminar", onClick: () => document.execCommand("delete") },
+            { icon: <IconActionsTrash />, title: "Eliminar", onClick: () => setShowDeleteAlert(true) },
             { icon: <HighlighterIcon />, title: "Resaltar", onClick: () => document.execCommand("hiliteColor", false, "#fef08a") },
             { icon: <HtmlIcon />, title: "HTML" },
           ].map(({ icon, title, onClick }) => (
@@ -425,6 +494,7 @@ export default function EditorDeTexto() {
         {/* Subtitle */}
         <div className="pb-6 border-b border-[#f0f0f0]">
           <textarea
+            ref={subtitleRef}
             className="w-full resize-none outline-none overflow-hidden font-['Roboto',sans-serif] font-normal text-[24px] leading-[1.35] placeholder-[#b1b1b1] text-[#373737]"
             style={{ caretColor: "#5c96f6" }}
             placeholder="Teclea o pega el subtítulo de la nota"
@@ -441,23 +511,69 @@ export default function EditorDeTexto() {
         {blocks.map((block, i) => (
           <div
             key={block.id}
+            className="relative"
             onMouseEnter={() => setHoveredBlockIndex(i)}
             onMouseLeave={() => setHoveredBlockIndex(null)}
+            onDragOver={(e) => { e.preventDefault(); setDragOverIndex(i); }}
+            onDragLeave={() => setDragOverIndex(null)}
+            onDrop={() => { if (dragStartIndex.current !== null) { reorderBlock(dragStartIndex.current, i); } setDragOverIndex(null); }}
           >
+            {/* Drop indicator */}
+            {dragOverIndex === i && dragStartIndex.current !== i && (
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#5c96f6] rounded pointer-events-none z-10" />
+            )}
+
+            {/* Left gutter controls */}
+            <div
+              className={`absolute flex items-center gap-0.5 transition-opacity duration-100 ${hoveredBlockIndex === i || focusedBlockId === block.id ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+              style={{ left: -92, top: 0 }}
+            >
+              <button
+                id={openPaletteIndex === i ? "block-palette-trigger" : undefined}
+                className="flex items-center justify-center w-[42px] h-[42px] rounded hover:bg-[#f0f0f0] text-[#bbb] hover:text-[#585858] transition-colors"
+                title="Insertar bloque"
+                onClick={() => setOpenPaletteIndex(openPaletteIndex === i ? null : i)}
+              >
+                <SmallPlusIcon />
+              </button>
+              <button
+                draggable
+                onDragStart={() => { dragStartIndex.current = i; }}
+                onDragEnd={() => { dragStartIndex.current = null; setDragOverIndex(null); }}
+                className="flex items-center justify-center w-[42px] h-[42px] rounded hover:bg-[#f0f0f0] text-[#bbb] hover:text-[#585858] cursor-grab active:cursor-grabbing transition-colors"
+                title="Mover bloque"
+              >
+                <DragHandleIcon />
+              </button>
+            </div>
+
+            {/* Block palette popup */}
+            {openPaletteIndex === i && (
+              <div
+                id="block-palette-popup"
+                className="absolute z-30 bg-[#f8f9fa] border border-[#dee2e6] rounded-[6px] flex items-center gap-1 px-2 py-2 shadow-md"
+                style={{ left: 0, top: "calc(100% + 4px)" }}
+              >
+                {BLOCK_PALETTE.map(({ type, icon, label }) => (
+                  <button
+                    key={type}
+                    title={label}
+                    onClick={() => { insertBlock(i, type, true); setOpenPaletteIndex(null); }}
+                    className="flex items-center justify-center w-8 h-8 rounded hover:bg-[#e9ecef] text-[#373737] transition-colors"
+                  >
+                    {icon}
+                  </button>
+                ))}
+              </div>
+            )}
+
             <ParagraphBlock
               block={block}
               pendingFocusRef={pendingFocusRef}
               onContentChange={updateBlockContent}
-              onFocus={(id) => setFocusedBlockId(id)}
+              onFocus={(id) => { setFocusedBlockId(id); setOpenPaletteIndex(null); }}
               onBlur={() => setFocusedBlockId(null)}
               onEnter={() => insertBlock(i, "paragraph", true)}
-            />
-            <BlockInserter
-              onInsert={type => insertBlock(i, type)}
-              visible={
-                focusedBlockId !== block.id &&
-                (hoveredBlockIndex === i || (hoveredBlockIndex === null && i === blocks.length - 1))
-              }
             />
           </div>
         ))}
@@ -476,5 +592,39 @@ export default function EditorDeTexto() {
         )}
       </div>
     </div>
+
+    {/* Delete confirmation modal */}
+    {showDeleteAlert && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+        <div className="bg-white rounded-[8px] shadow-xl w-[400px] p-6 flex flex-col gap-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-full bg-[#fdecea] flex items-center justify-center shrink-0">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm1 11H9v-2h2v2zm0-4H9V5h2v4z" fill="#f44336"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-[15px] font-semibold text-[#1f2937]">¿Eliminar contenido?</p>
+              <p className="text-[13px] text-[#6b7280] mt-1">El contenido seleccionado será eliminado. Esta acción no se puede deshacer.</p>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              onClick={() => setShowDeleteAlert(false)}
+              className="px-4 py-2 text-[14px] text-[#374151] border border-[#dadce0] rounded-[6px] hover:bg-[#f5f5f5] transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={() => { document.execCommand("delete"); setShowDeleteAlert(false); }}
+              className="px-4 py-2 text-[14px] text-white bg-[#f44336] hover:bg-[#d32f2f] rounded-[6px] transition-colors"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 }

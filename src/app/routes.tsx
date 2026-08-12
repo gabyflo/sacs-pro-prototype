@@ -4,9 +4,15 @@ import NewNote from "./pages/NewNote";
 import EditorShell from "./pages/EditorShell";
 import EditorDeTexto from "./pages/tabs/EditorDeTexto";
 import InfoBasica from "./pages/tabs/InfoBasica";
-import PlaceholderTab from "./pages/tabs/PlaceholderTab";
+import ImagenNota from "./pages/tabs/ImagenNota";
+import Archivo from "./pages/tabs/Archivo";
+import Galeria from "./pages/tabs/Galeria";
+import ContenidoRelacionado from "./pages/tabs/ContenidoRelacionado";
+import VideoTab from "./pages/tabs/VideoTab";
+import MobileEditor from "./pages/MobileEditor";
 
 export const router = createBrowserRouter([
+  { path: "/mobile", Component: MobileEditor },
   {
     path: "/",
     Component: Layout,
@@ -19,11 +25,11 @@ export const router = createBrowserRouter([
           { index: true, element: <Navigate to="texto" replace /> },
           { path: "texto", Component: EditorDeTexto },
           { path: "info", Component: InfoBasica },
-          { path: "imagen", element: <PlaceholderTab label="Imagen de la Nota" /> },
-          { path: "archivo", element: <PlaceholderTab label="Archivo" /> },
-          { path: "galeria", element: <PlaceholderTab label="Galería" /> },
-          { path: "relacionado", element: <PlaceholderTab label="Contenido Relacionado" /> },
-          { path: "video", element: <PlaceholderTab label="Video" /> },
+          { path: "imagen", Component: ImagenNota },
+          { path: "archivo", Component: Archivo },
+          { path: "galeria", Component: Galeria },
+          { path: "relacionado", Component: ContenidoRelacionado },
+          { path: "video", Component: VideoTab },
         ],
       },
     ],
