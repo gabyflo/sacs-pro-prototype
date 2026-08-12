@@ -55,8 +55,8 @@ export default function EditorShell() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
+  const [title, setTitle] = useState("Cinco hábitos que están transformando la productividad remota en 2026");
+  const [subtitle, setSubtitle] = useState("Equipos distribuidos reportan mejoras de hasta 30% en entregas al adoptar estas prácticas");
   const [isSaving, setIsSaving] = useState(false);
   const [showPublishMenu, setShowPublishMenu] = useState(false);
   const [showHeaderDotsMenu, setShowHeaderDotsMenu] = useState(false);
