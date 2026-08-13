@@ -606,6 +606,7 @@ export default function EditorDeTexto() {
       <div
         ref={canvasRef}
         onClick={handleCanvasClick}
+        onMouseLeave={() => { setHoveredBlockIndex(null); setHoveredDragIndex(null); }}
         onKeyDown={(e) => {
           if ((e.metaKey || e.ctrlKey) && e.key === "a") {
             e.preventDefault();
@@ -744,9 +745,8 @@ export default function EditorDeTexto() {
             key={block.id}
             className="relative"
             onMouseEnter={() => setHoveredBlockIndex(i)}
-            onMouseLeave={() => { setHoveredBlockIndex(null); setHoveredDragIndex(null); }}
             onDragOver={(e) => { e.preventDefault(); setDragOverIndex(i); }}
-            onDragLeave={() => setDragOverIndex(null)}
+            onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragOverIndex(null); }}
             onDrop={() => { if (dragStartIndex.current !== null) { reorderBlock(dragStartIndex.current, i); } setDragOverIndex(null); }}
           >
             {/* Drop indicator */}
